@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Epstein Files — Web Frontend
 
-## Getting Started
+Next.js 16 frontend for the Epstein Files archive. Built with React 19, TypeScript, Tailwind CSS, and shadcn/ui.
 
-First, run the development server:
+## Pages
+
+- **/** — Home page with archive stats and intro
+- **/chat** — AI chat interface (RAG with source citations, SSE streaming)
+- **/documents** — Full-text search and document browsing
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Expects the API running at `http://localhost:8000` (or set `NEXT_PUBLIC_API_URL`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Component | Purpose |
+|-----------|---------|
+| `header.tsx` | Navigation and theme toggle |
+| `footer.tsx` | Attribution links |
+| `chat-input.tsx` | Message input with send button |
+| `chat-message.tsx` | Chat bubbles with source citations |
+| `search-input.tsx` | Search box |
+| `document-card.tsx` | Document list item with metadata |
+| `pagination.tsx` | Page navigation |
+| `text-viewer.tsx` | Extracted text display |
 
-## Learn More
+## API Client
 
-To learn more about Next.js, take a look at the following resources:
+`lib/api.ts` contains typed fetch wrappers for all API endpoints:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `fetchStats()` — archive statistics
+- `searchDocuments()` — FTS5 search
+- `fetchDocuments()` / `fetchDocument()` — browse documents
+- `streamChat()` — SSE streaming RAG chat
+- `fetchSources()` — list document sources
