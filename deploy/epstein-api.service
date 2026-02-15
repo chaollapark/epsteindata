@@ -1,0 +1,19 @@
+[Unit]
+Description=Epstein Files API (uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/epstein
+Environment=SQLITE_DB_PATH=/root/epstein/epstein.db
+Environment=DATA_DIR=/root/epstein/data
+Environment=CHROMA_DB_PATH=/root/epstein/chroma_db
+Environment=CORS_ORIGINS=https://epsteindata.cc,http://localhost:3000
+EnvironmentFile=-/root/epstein/.env
+ExecStart=/root/epstein/.venv/bin/uvicorn api.server:app --host 127.0.0.1 --port 8000 --workers 4
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+# Site: https://epsteindata.cc
+# The Epstein Files — Public Document Archive
+
+User-agent: *
+Allow: /
+
+Sitemap: https://epsteindata.cc/sitemap.xml

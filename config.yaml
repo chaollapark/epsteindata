@@ -1,0 +1,69 @@
+# Epstein Document Scraper Configuration
+
+data_dir: data
+db_path: epstein.db
+log_dir: logs
+
+# Default download settings
+download:
+  timeout: 120
+  max_retries: 3
+  backoff_factor: 2
+  default_rate_limit: 2.0  # seconds between requests
+  user_agent: "EpsteinDocScraper/1.0 (Academic Research)"
+  max_file_size: 53687091200  # 50GB (DOJ zips are large)
+
+# Per-source configuration
+sources:
+  fbi_vault:
+    enabled: false  # 403 blocked by FBI Vault
+    rate_limit: 5.0
+    description: "FBI Vault FOIA release (22 parts)"
+
+  direct_urls:
+    enabled: true
+    rate_limit: 2.0
+    description: "Curated list of known document URLs"
+
+  doj:
+    enabled: true
+    rate_limit: 3.0
+    description: "DOJ Epstein case documents"
+
+  internet_archive:
+    enabled: true
+    rate_limit: 1.0
+    description: "Internet Archive collections"
+
+  documentcloud:
+    enabled: true
+    rate_limit: 1.0
+    description: "DocumentCloud public documents"
+
+  courtlistener:
+    enabled: false  # Needs API token
+    rate_limit: 2.0
+    api_token: ""
+    description: "CourtListener REST API"
+
+  house_oversight:
+    enabled: true
+    rate_limit: 3.0
+    description: "House Oversight Committee releases"
+
+  torrents:
+    enabled: true
+    rate_limit: 0
+    description: "Torrent downloads via aria2c (magnets from yung-megafone/Epstein-Files)"
+
+  epsteingraph:
+    enabled: true
+    rate_limit: 1.0
+    description: "EpsteinGraph.com processed data (people, documents, connections, timelines)"
+
+# Text extraction settings
+extraction:
+  enabled: true
+  min_chars_per_page: 50  # Below this, page is considered scanned
+  ocr_dpi: 300
+  tesseract_lang: "eng"
