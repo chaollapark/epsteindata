@@ -12,6 +12,15 @@ export function Footer() {
           >
             EpsteinData.cc
           </a>
+          {" "}&middot;{" "}
+          <a
+            href="https://github.com/chaollapark/epsteindata"
+            className="font-medium text-foreground hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contribute on GitHub
+          </a>
         </p>
       </div>
     </footer>
